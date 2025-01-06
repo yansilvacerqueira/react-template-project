@@ -1,13 +1,18 @@
-import { Home } from "@/ui/pages/home/Home"
-import { Signin } from "@/ui/pages/signin/Signin"
 import { Route, Routes } from "react-router-dom"
 import { routes } from "./routes"
 
+import { lazy, Suspense } from "react"
+
+const Home = lazy(() => import("@/ui/pages/home/Home"));
+const Signin = lazy(() => import("@/ui/pages/signin/Signin"));
+
 export const Router = () => {
   return (
-    <Routes>
-      <Route element={<Home />} path={routes.home} />
-      <Route element={<Signin />} path={routes.signin} />
-    </Routes>
+    <Suspense fallback={<span>Loading...</span>}>
+      <Routes>
+        <Route element={<Home />} path={routes.home} />
+        <Route element={<Signin />} path={routes.signin} />
+      </Routes>
+    </Suspense>
   )
 }
